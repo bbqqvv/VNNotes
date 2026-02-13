@@ -14,22 +14,26 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://stealthassist.vercel.app"),
-  title: "Stealth Assist - The Invisible Workspace",
+  title: "VNNotes - The Invisible Workspace",
   description: "Privacy-focused note-taking and browsing tool for professionals. Invisible to screen sharing, local storage only.",
   icons: {
-    icon: "/logo.png",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/icon-192.png",
   },
   openGraph: {
-    title: "Stealth Assist - The Invisible Workspace",
+
+
+    title: "VNNotes - The Invisible Workspace",
     description: "Privacy-focused note-taking and browsing tool for professionals.",
     url: "https://stealthassist.vercel.app",
-    siteName: "Stealth Assist",
+    siteName: "VNNotes",
     images: [
       {
         url: "/meta.png",
         width: 1200,
         height: 630,
-        alt: "Stealth Assist Preview",
+        alt: "VNNotes Preview",
       },
     ],
     locale: "en_US",
@@ -46,9 +50,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/logo.png" />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

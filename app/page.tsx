@@ -12,8 +12,8 @@ export default function Home() {
       <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-neutral-950/80 backdrop-blur-md">
         <div className="container mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3 font-bold text-xl tracking-tight">
-            <img src="/logo.png" alt="Stealth Assist Logo" className="w-8 h-8 object-contain" />
-            <span><span className="text-emerald-500">Stealth</span>Assist</span>
+            <img src="/logo.png" alt="VNNotes Logo" className="w-8 h-8 object-contain" />
+            <span><span className="text-emerald-500">VN</span>Notes</span>
           </div>
           <div className="flex items-center gap-6 text-sm font-medium text-neutral-400">
             <Link href="#features" className="hover:text-white transition-colors">Features</Link>
@@ -43,7 +43,7 @@ export default function Home() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            v1.5.1 is now available
+            v1.0.0 is now available
           </motion.div>
 
           <motion.h1
@@ -73,7 +73,7 @@ export default function Home() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link
-              href="https://github.com/bbqqvv/AnonymNotes/releases/latest/download/StealthAssist_Setup.exe"
+              href="https://github.com/bbqqvv/AnonymNotes/releases/latest/download/VNNotes_Setup.exe"
               className="group flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-semibold hover:bg-neutral-200 transition-all hover:scale-105 active:scale-95"
             >
               <Download className="w-5 h-5 group-hover:animate-bounce" />
@@ -137,7 +137,7 @@ export default function Home() {
             <FeatureCard
               icon={<Move className="w-6 h-6 text-orange-400" />}
               title="Drag & Drop"
-              description="New in v1.5! Effortlessly arrange your content. Drag images and text exactly where you want them."
+              description="New in v1.0! Effortlessly arrange your content. Drag images and text exactly where you want them."
             />
             <FeatureCard
               icon={<Shield className="w-6 h-6 text-red-400" />}
@@ -162,11 +162,11 @@ export default function Home() {
             <br />Free and open source.
           </p>
           <Link
-            href="https://github.com/bbqqvv/AnonymNotes/releases/latest/download/StealthAssist_Setup.exe"
+            href="https://github.com/bbqqvv/AnonymNotes/releases/latest/download/VNNotes_Setup.exe"
             className="inline-flex items-center gap-2 bg-emerald-600 text-white px-8 py-4 rounded-full font-bold hover:bg-emerald-500 transition-all hover:scale-105 shadow-lg shadow-emerald-500/20"
           >
             <Download className="w-5 h-5" />
-            Download v1.5.1
+            Download v1.0.0
           </Link>
           <p className="mt-6 text-sm text-neutral-600">
             Windows 10/11 • 64-bit • Installer (~200MB)
@@ -175,9 +175,10 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 py-12 text-center text-neutral-500 text-sm">
-        <p>© 2026 Stealth Assist. Built for privacy.</p>
-        <div className="flex justify-center gap-6 mt-4">
+      <footer className="border-t border-white/5 py-12 text-center text-neutral-500 text-sm font-light">
+        <p>© 2026 VNNotes. Built for privacy.</p>
+        <p className="mt-1 text-neutral-600">Copyright © VTech Digital Solution</p>
+        <div className="flex justify-center gap-6 mt-6">
           <Link href="https://github.com/bbqqvv/AnonymNotes" className="hover:text-white">GitHub</Link>
           <Link href="/changelog" className="hover:text-white">Changelog</Link>
           {/* <Link href="/privacy" className="hover:text-white">Privacy</Link> */}
