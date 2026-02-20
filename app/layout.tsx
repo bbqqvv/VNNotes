@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
     title: "VNNotes - The Invisible Workspace",
     description: "Privacy-focused note-taking and browsing tool for professionals.",
-    url: "https://stealthassist.vercel.app",
+    url: "https://vnnotes.vercel.app",
     siteName: "VNNotes",
     images: [
       {
