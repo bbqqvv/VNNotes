@@ -14,11 +14,26 @@ export default function Changelog() {
                 </div>
 
                 <div className="space-y-12">
+                    {/* Version 1.1.1 */}
+                    <ChangelogEntry
+                        version="v1.1.1"
+                        date="February 20, 2026"
+                        isLatest={true}
+                    >
+                        <ul className="list-disc list-inside space-y-3 text-neutral-300">
+                            <li><strong className="text-white">Fix – Built-in Browser Disappears:</strong> Pressing <kbd className="bg-white/10 px-1 rounded text-xs">Ctrl+Shift+Space</kbd> twice in a row used to make the built-in browser window vanish completely. Now fixed.</li>
+                            <li><strong className="text-white">Fix – Layout Breaks on Right-Click:</strong> Right-clicking inside the browser sometimes caused the app layout to shift or break. This has been fully resolved.</li>
+                            <li><strong className="text-white">Fix – App Crashes on Next Launch:</strong> In some cases — such as a force-close or unexpected shutdown — saved data could become corrupted, causing the app to crash on the next start. The app now automatically detects and recovers from this without losing important data.</li>
+                            <li><strong className="text-white">Fix – Search Bar Shows White in Dark Mode:</strong> The Search/Find input box appeared with a bright white background when using dark mode, looking completely out of place. Now correctly styled to match the dark theme.</li>
+                            <li><strong className="text-white">Improvement – More Reliable Saving on Windows:</strong> The file saving system has been upgraded to work better on Windows 10/11, especially on machines running antivirus or security software in the background — reducing the risk of data loss during save.</li>
+                        </ul>
+                    </ChangelogEntry>
+
                     {/* Version 1.1.0 */}
                     <ChangelogEntry
                         version="v1.1.0"
                         date="February 20, 2026"
-                        isLatest={true}
+                        isLatest={false}
                     >
                         <ul className="list-disc list-inside space-y-3 text-neutral-300">
                             <li><strong className="text-white">New Sidebar:</strong> Brand-new collapsible note tree sidebar for fast file navigation — create folders, notes, and switch between them instantly.</li>
