@@ -21,17 +21,18 @@ export default function Changelog() {
                         isLatest={true}
                     >
                         <ul className="list-disc list-inside space-y-3 text-neutral-300">
-                            <li><strong className="text-white">Stability Fix:</strong> Resolved application crash on launch caused by missing QtWebEngine dependencies.</li>
-                            <li><strong className="text-white">Size Optimization:</strong> Intelligent pruning of unused Qt modules for a leaner install footprint.</li>
-                            <li><strong className="text-white">Auto-Update Check:</strong> Application now checks GitHub for new releases on startup.</li>
-                            <li><strong className="text-white">Branding Polish:</strong> VTech icon now displayed correctly in the Windows taskbar and Start Menu.</li>
-                            <li><strong className="text-white">Clean Install Experience:</strong> Resources folder is now hidden after installation for a professional directory layout.</li>
+                            <li><strong className="text-white">New Sidebar:</strong> Brand-new collapsible note tree sidebar for fast file navigation — create folders, notes, and switch between them instantly.</li>
+                            <li><strong className="text-white">Quick Actions Toolbar:</strong> One-click shortcuts for all common actions (new note, new folder, collapse all, refresh) right in the sidebar header.</li>
+                            <li><strong className="text-white">Performance Optimization:</strong> Major refactor of core architecture — faster startup, smoother tab switching, and lower memory usage.</li>
+                            <li><strong className="text-white">Stability Fix:</strong> Resolved a crash on launch caused by missing QtWebEngine dependencies after install.</li>
+                            <li><strong className="text-white">Clean Install Experience:</strong> Resources folder is now hidden post-install for a professional directory layout.</li>
+                            <li><strong className="text-white">Branding Polish:</strong> VTech icon now correctly displayed in the Windows taskbar and Start Menu via AppUserModelID.</li>
                         </ul>
                     </ChangelogEntry>
 
                     {/* Version 1.0.0 */}
                     <ChangelogEntry
-                        version="v1.1.0"
+                        version="v1.0.0"
                         date="February 13, 2026"
                         isLatest={false}
                     >
