@@ -14,11 +14,39 @@ export default function Changelog() {
                 </div>
 
                 <div className="space-y-12">
+                    {/* Version 2.0.1.1 */}
+                    <ChangelogEntry
+                        version="v2.0.1.1"
+                        date="February 27, 2026"
+                        isLatest={true}
+                    >
+                        <ul className="list-disc list-inside space-y-3 text-neutral-300">
+                            <li><strong className="text-white">Developer Mode:</strong> The editor now features professional line numbers and a real-time Document Preview schema (Minimap) positioned on the right gutter for rapid navigation.</li>
+                            <li><strong className="text-white">Format Switching:</strong> Re-engineered the switching mechanism between Markdown and Rich Text modes for ultimate accuracy and preventing CSS leakage.</li>
+                            <li><strong className="text-white">Sidebar Upgrades:</strong> A new <span className="italic">"Move to Folder"</span> action has been integrated directly into the sidebar right-click menu, streamlining note organization.</li>
+                            <li><strong className="text-white">Security & UI Refinements:</strong> Deployed a suite of critical UI patches and resolved underlying security loopholes identified during a strict Production Code Audit.</li>
+                        </ul>
+                    </ChangelogEntry>
+
+                    {/* Version 2.0.1 */}
+                    <ChangelogEntry
+                        version="v2.0.1"
+                        date="February 26, 2026"
+                        isLatest={false}
+                    >
+                        <ul className="list-disc list-inside space-y-3 text-neutral-300">
+                            <li><strong className="text-white">Security – Stealth Mode Upgrade:</strong> Super Stealth mode now completely hides the application from the Windows Taskbar and Alt+Tab menu dynamically, ensuring absolute privacy when active.</li>
+                            <li><strong className="text-white">Security – Locked Folder Mentions:</strong> the `@mention` autocomplete menu no longer exposes the titles of notes stored inside Locked Vaults, preventing accidental privacy leaks.</li>
+                            <li><strong className="text-white">Security – Guarded Internal Links:</strong> Clicking an internal `vnnote://` link pointing to a locked document now actively prompts for the correct Vault Password before granting access.</li>
+                            <li><strong className="text-white">Fixed – Core Platform Zoom Integration:</strong> Completely rewrote the document zooming mechanism. Zooming via `Ctrl`+`Scroll` now relies on low-level Qt PointSize scaling, resolving a major crash triggered by pixel-level font rendering on fresh notes.</li>
+                        </ul>
+                    </ChangelogEntry>
+
                     {/* Version 2.0.0 */}
                     <ChangelogEntry
                         version="v2.0.0"
                         date="February 25, 2026"
-                        isLatest={true}
+                        isLatest={false}
                     >
                         <ul className="list-disc list-inside space-y-3 text-neutral-300">
                             <li><strong className="text-white">Big Update – Core Architecture:</strong> Successfully migrated the entire backend to <strong className="text-emerald-400">SQLite</strong> for military-grade data reliability and blazing-fast search speeds.</li>
