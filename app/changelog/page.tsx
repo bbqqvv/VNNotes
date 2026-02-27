@@ -25,9 +25,8 @@ export default function Changelog() {
                             <li><strong className="text-white">Format Switching:</strong> Re-engineered the switching mechanism between Markdown and Rich Text modes for ultimate accuracy and preventing CSS leakage.</li>
                             <li><strong className="text-white">Sidebar Upgrades:</strong> A new <span className="italic">"Move to Folder"</span> action has been integrated directly into the sidebar right-click menu, streamlining note organization.</li>
                             <li><strong className="text-white">Security & UI Refinements:</strong> Deployed a suite of critical UI patches and resolved underlying security loopholes identified during a strict Production Code Audit.</li>
-                            <li><strong className="text-white">Tab Management Restored:</strong> Re-wrote the tab docking logic for pinpoint accuracy. "Close All Tabs" and individual context menus are now 100% reliable.</li>
                             <li><strong className="text-white">Professional Markdown:</strong> Fully integrated `markdown` and `markdownify` Python libraries for mathematically accurate document conversions.</li>
-                            <li><strong className="text-white">Line Ending Consistency:</strong> Executed a full-codebase sweep to strictly enforce LF line endings, massively boosting compatibility.</li>
+                            <li><strong className="text-white">Bug Fixes & Stability:</strong> Addressed multiple minor bugs and improved overall application stability and performance consistency.</li>
                         </ul>
                     </ChangelogEntry>
 
