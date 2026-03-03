@@ -2,9 +2,9 @@ name: Enterprise CI/CD Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   # ==========================================
@@ -83,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     # Only run on main branch pushes
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Placeholder Production Deploy
         run: echo "✅ Deploying to Production via Vercel CLI / Webhooks..."
