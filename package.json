@@ -2,6 +2,9 @@
   "name": "web",
   "version": "1.0.0",
   "private": true,
+  "overrides": {
+    "minimatch": "^9.0.7"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
