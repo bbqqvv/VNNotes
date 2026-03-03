@@ -1,0 +1,15 @@
+{
+    "name": "vnnotes-docs",
+    "version": "1.0.0",
+    "description": "VNNotes Documentation",
+    "scripts": {
+        "docs:dev": "vitepress dev",
+        "docs:build": "vitepress build",
+        "docs:preview": "vitepress preview"
+    },
+    "devDependencies": {
+        "vitepress": "^1.0.0-rc.31",
+        "vitepress-plugin-mermaid": "^2.0.16",
+        "mermaid": "^10.8.0"
+    }
+}
