@@ -25,6 +25,24 @@ interface MarketPlugin {
     download_url?: string;
 }
 
+interface VnNotesMarket {
+    get_installed_plugins: (callback: (list: string) => void) => void;
+    install_plugin: (id: string, url: string) => void;
+    installation_status: {
+        connect: (callback: (id: string, success: boolean, msg: string) => void) => void;
+    };
+}
+
+declare global {
+    interface Window {
+        qt: {
+            webChannelTransport: unknown;
+        };
+        QWebChannel: new (transport: unknown, callback: (channel: { objects: { vnnotes_market: VnNotesMarket } }) => void) => void;
+        vnnotes_market: VnNotesMarket;
+    }
+}
+
 interface PluginCardProps extends MarketPlugin {
     isInstalled: boolean;
     isInstalling: boolean;
@@ -181,10 +199,10 @@ function MarketContent() {
 
         // 2. Setup Bridge
         const initBridge = () => {
-            if (typeof window !== "undefined" && (window as any).qt && (window as any).QWebChannel) {
-                new (window as any).QWebChannel((window as any).qt.webChannelTransport, (channel: any) => {
+            if (typeof window !== "undefined" && window.qt && window.QWebChannel) {
+                new window.QWebChannel(window.qt.webChannelTransport, (channel) => {
                     const bridge = channel.objects.vnnotes_market;
-                    (window as any).vnnotes_market = bridge;
+                    window.vnnotes_market = bridge;
 
                     // Get initial installed list
                     bridge.get_installed_plugins((list: string) => {
@@ -199,7 +217,7 @@ function MarketContent() {
                         }
                     });
                 });
-            } else if ((window as any).qt) {
+            } else if (typeof window !== "undefined" && window.qt) {
                 // Wait for QWebChannel to be injected
                 setTimeout(initBridge, 100);
             }
@@ -209,9 +227,9 @@ function MarketContent() {
     }, []);
 
     const handleInstall = (id: string, url: string) => {
-        if (typeof window !== "undefined" && (window as any).vnnotes_market) {
+        if (typeof window !== "undefined" && window.vnnotes_market) {
             setInstallingId(id);
-            (window as any).vnnotes_market.install_plugin(id, url);
+            window.vnnotes_market.install_plugin(id, url);
         } else {
             // Mock for browser testing
             setInstallingId(id);
@@ -377,7 +395,7 @@ function MarketContent() {
                                                 {...p}
                                                 isInstalled={installedIds.includes(p.id)}
                                                 isInstalling={installingId === p.id}
-                                                onInstall={(e: any) => { e.stopPropagation(); handleInstall(p.id, (p as any).download_url || ""); }}
+                                                onInstall={(e: React.MouseEvent) => { e.stopPropagation(); handleInstall(p.id, p.download_url || ""); }}
                                                 onClick={() => setSelectedPlugin(p)}
                                             />
                                         </motion.div>
