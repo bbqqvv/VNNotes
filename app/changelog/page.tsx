@@ -21,11 +21,11 @@ export default function Changelog() {
                         isLatest={true}
                     >
                         <ul className="list-disc list-inside space-y-3 text-neutral-300">
-                            <li><strong className="text-white">Developer Mode:</strong> The editor now features professional line numbers and a real-time Document Preview schema (Minimap) positioned on the right gutter for rapid navigation.</li>
+                            <li><strong className="text-white">Developer Mode:</strong> The editor now features professional line numbers and a real-time Document Preview schema (&quot;Minimap&quot;) positioned on the right gutter for rapid navigation.</li>
                             <li><strong className="text-white">Format Switching:</strong> Re-engineered the switching mechanism between Markdown and Rich Text modes for ultimate accuracy and preventing CSS leakage.</li>
-                            <li><strong className="text-white">Sidebar Upgrades:</strong> A new <span className="italic">"Move to Folder"</span> action has been integrated directly into the sidebar right-click menu, streamlining note organization.</li>
+                            <li><strong className="text-white">Sidebar Upgrades:</strong> A new <span className="italic">&quot;Move to Folder&quot;</span> action has been integrated directly into the sidebar right-click menu, streamlining note organization.</li>
                             <li><strong className="text-white">Security & UI Refinements:</strong> Deployed a suite of critical UI patches and resolved underlying security loopholes identified during a strict Production Code Audit.</li>
-                            <li><strong className="text-white">Professional Markdown:</strong> Fully integrated `markdown` and `markdownify` Python libraries for mathematically accurate document conversions.</li>
+                            <li><strong className="text-white">Professional Markdown:</strong> Fully integrated <code>markdown</code> and <code>markdownify</code> Python libraries for mathematically accurate document conversions.</li>
                             <li><strong className="text-white">Bug Fixes & Stability:</strong> Addressed multiple minor bugs and improved overall application stability and performance consistency.</li>
                         </ul>
                     </ChangelogEntry>
@@ -60,7 +60,7 @@ export default function Changelog() {
                             <li><strong className="text-white">Advanced Rich Text:</strong> Complete control over your content with new options for text color, background highlights (text-bg), and granular font size adjustments.</li>
                             <li><strong className="text-white">Fluid Zoom:</strong> Integrated scroll-in/out (Zoom) functionality for effortless reading and navigation of long documents.</li>
                             <li><strong className="text-white">Controlled Invisibility:</strong> Improved Anti-Capture mode now stays off by default and only activates when you explicitly need it, saving system resources.</li>
-                            <li><strong className="text-white">Performance & Fixes:</strong> Massive code logic refactoring for a "butter-smooth" experience. Fixed dozens of micro-bugs including the redundant note restoration glitch.</li>
+                            <li><strong className="text-white">Performance & Fixes:</strong> Massive code logic refactoring for a &quot;butter-smooth&quot; experience. Fixed dozens of micro-bugs including the redundant note restoration glitch.</li>
                         </ul>
                     </ChangelogEntry>
 

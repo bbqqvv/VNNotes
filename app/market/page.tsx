@@ -3,11 +3,35 @@
 import { useState, useEffect } from "react";
 import Script from "next/script";
 import {
-    Download, Search, Filter, Star, Cpu, Sparkles, Code2,
+    Search, Filter, Cpu, Sparkles, Code2,
     Cloud, Terminal, Layout, Eye, Settings,
-    ArrowUpRight, ChevronRight, Bookmark
+    Bookmark
 } from "lucide-react";
-import { motion, AnimatePresence, useMotionValue } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+
+// --- Types ---
+interface MarketPlugin {
+    id: string;
+    name: string;
+    author: string;
+    category: string;
+    price: string;
+    rating: number;
+    downloads: string;
+    description: string;
+    icon: React.ReactNode;
+    featured: boolean;
+    accent: string;
+    download_url?: string;
+}
+
+interface PluginCardProps extends MarketPlugin {
+    isInstalled: boolean;
+    isInstalling: boolean;
+    onInstall: (e: React.MouseEvent) => void;
+    onClick: () => void;
+}
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -15,7 +39,7 @@ import Footer from "@/components/Footer";
 const CATEGORIES = ["All", "AI", "Editor", "Productivity", "UI Themes", "Utilities"];
 
 // Mock Plugin Data for Scalability Demo
-const ALL_PLUGINS = [
+const ALL_PLUGINS: MarketPlugin[] = [
     {
         id: "smartai-pro",
         name: "SmartAI Assistant",
@@ -137,7 +161,7 @@ function MarketContent() {
     const [installingId, setInstallingId] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [activeCategory, setActiveCategory] = useState("All");
-    const [selectedPlugin, setSelectedPlugin] = useState<any | null>(null);
+    const [selectedPlugin, setSelectedPlugin] = useState<MarketPlugin | null>(null);
 
     useEffect(() => {
         // 1. Fetch real registry if available
@@ -168,7 +192,7 @@ function MarketContent() {
                     });
 
                     // Listen for status updates
-                    bridge.installation_status.connect((id: string, success: boolean, msg: string) => {
+                    bridge.installation_status.connect((id: string, success: boolean, _msg: string) => {
                         setInstallingId(null);
                         if (success) {
                             setInstalledIds(prev => [...new Set([...prev, id])]);
@@ -206,7 +230,7 @@ function MarketContent() {
         return matchesSearch && matchesCategory;
     });
 
-    const featuredPlugins = filteredPlugins.filter(p => p.featured);
+
 
     return (
         <div className="min-h-screen bg-black text-neutral-100 font-sans selection:bg-emerald-500/30 overflow-x-hidden relative">
@@ -486,7 +510,7 @@ function MarketContent() {
     );
 }
 
-function FeaturedCard({ name, description, icon, price, category }: any) {
+function FeaturedCard({ name, description, icon, price, category }: Partial<MarketPlugin>) {
     return (
         <motion.div
             whileHover={{ y: -2 }}
@@ -498,7 +522,7 @@ function FeaturedCard({ name, description, icon, price, category }: any) {
                         {icon}
                     </div>
                     <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
-                        Editor's Pick
+                        Editor&apos;s Pick
                     </span>
                 </div>
 
@@ -533,7 +557,7 @@ function FeaturedCard({ name, description, icon, price, category }: any) {
     );
 }
 
-function PluginCard({ id, name, author, description, icon, price, isInstalled, isInstalling, onInstall, onClick }: any) {
+function PluginCard({ name, author, description, icon, price, isInstalled, isInstalling, onInstall, onClick }: PluginCardProps) {
     return (
         <div
             onClick={onClick}

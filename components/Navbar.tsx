@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -22,7 +23,7 @@ export default function Navbar() {
                 <div className={`glass-dark rounded-2xl px-6 py-3 flex items-center justify-between transition-all ${isScrolled ? "scale-95 shadow-2xl" : "scale-100"}`}>
                     <Link href="/" className="flex items-center gap-3 group whitespace-nowrap">
                         <div className="relative flex-shrink-0">
-                            <img src="/logo.png" alt="VNNotes Logo" className="w-8 h-8 object-contain relative z-10" />
+                            <Image src="/logo.png" alt="VNNotes Logo" width={32} height={32} className="object-contain relative z-10" />
                             <div className="absolute inset-0 bg-emerald-500/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center">
