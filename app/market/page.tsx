@@ -255,12 +255,16 @@ function MarketContent() {
             setInstallingId(id);
             window.vnnotes_market.install_plugin(id, url);
         } else {
-            // Mock for browser testing
+            // Web browser fallback: Download the file manually if url exists
             setInstallingId(id);
             setTimeout(() => {
                 setInstallingId(null);
                 setInstalledIds(prev => [...prev, id]);
-                alert("This requires running inside VNNotes Desktop App.");
+                if (url) {
+                    window.open(url, "_blank");
+                } else {
+                    alert("This mock UI plugin is unavailable.");
+                }
             }, 1000);
         }
     };
