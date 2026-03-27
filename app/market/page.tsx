@@ -229,14 +229,18 @@ function MarketContent() {
 
                     // Get initial installed list
                     bridge.get_installed_plugins((list: string) => {
-                        setInstalledIds(JSON.parse(list));
+                        try {
+                            setInstalledIds(JSON.parse(list));
+                        } catch(e) { console.error(e) }
                     });
 
                     // Listen for status updates
-                    bridge.installation_status.connect((id: string, success: boolean, _msg: string) => {
+                    bridge.installation_status.connect((id: string, success: boolean, msg: string) => {
                         setInstallingId(null);
                         if (success) {
                             setInstalledIds(prev => [...new Set([...prev, id])]);
+                        } else if (msg === "Uninstalled") {
+                            setInstalledIds(prev => prev.filter(i => i !== id));
                         }
                     });
                 });
@@ -249,15 +253,20 @@ function MarketContent() {
         initBridge();
     }, []);
 
-    const handleInstall = (id: string, url: string) => {
+    const handleAction = (id: string, url: string, isInstalled: boolean) => {
         if (typeof window !== "undefined" && window.vnnotes_market) {
             setInstallingId(id);
-            window.vnnotes_market.install_plugin(id, url);
+            if (isInstalled) {
+                window.vnnotes_market.uninstall_plugin(id);
+            } else {
+                window.vnnotes_market.install_plugin(id, url);
+            }
         } else {
             // Web browser fallback: Deep Link to VNNotes Desktop
-            if (url) {
+            if (url || isInstalled) {
                 setInstallingId(id);
-                const deepLink = `vnnotes://install-plugin?id=${encodeURIComponent(id)}&url=${encodeURIComponent(url)}`;
+                const action = isInstalled ? "uninstall-plugin" : "install-plugin";
+                const deepLink = `vnnotes://${action}?id=${encodeURIComponent(id)}&url=${encodeURIComponent(url || "")}`;
                 window.location.href = deepLink;
                 
                 // Allow time for OS prompt before resetting visual state
@@ -265,7 +274,7 @@ function MarketContent() {
                     setInstallingId(null);
                 }, 2500);
             } else {
-                alert("This mock UI plugin is unavailable.");
+                alert("This plugin is unavailable.");
             }
         }
     };
@@ -424,7 +433,7 @@ function MarketContent() {
                                                 {...p}
                                                 isInstalled={installedIds.includes(p.id)}
                                                 isInstalling={installingId === p.id}
-                                                onInstall={(e: React.MouseEvent) => { e.stopPropagation(); handleInstall(p.id, p.download_url || ""); }}
+                                                onInstall={(e: React.MouseEvent) => { e.stopPropagation(); handleAction(p.id, p.download_url || "", installedIds.includes(p.id)); }}
                                                 onClick={() => setSelectedPlugin(p)}
                                             />
                                         </motion.div>
@@ -535,16 +544,16 @@ function MarketContent() {
                                     Cancel
                                 </button>
                                 <button
-                                    onClick={() => handleInstall(selectedPlugin.id, selectedPlugin.download_url || "")}
-                                    disabled={installedIds.includes(selectedPlugin.id) || installingId === selectedPlugin.id}
-                                    className={`px-8 py-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 ${installedIds.includes(selectedPlugin.id)
-                                        ? 'bg-white/5 text-neutral-500 cursor-default'
+                                    onClick={() => handleAction(selectedPlugin.id, selectedPlugin.download_url || "", installedIds.includes(selectedPlugin.id))}
+                                    disabled={installingId === selectedPlugin.id}
+                                    className={`px-8 py-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 border ${installedIds.includes(selectedPlugin.id)
+                                        ? 'bg-rose-500/5 border-rose-500/20 text-rose-500 hover:bg-rose-500/10'
                                         : installingId === selectedPlugin.id
-                                            ? 'bg-emerald-500/10 text-emerald-400 cursor-wait animate-pulse'
-                                            : 'bg-white text-black hover:bg-emerald-400 shadow-lg'
+                                            ? 'bg-transparent border-emerald-500/30 text-emerald-400 cursor-wait animate-pulse'
+                                            : 'bg-transparent border-white/10 text-neutral-300 hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-400'
                                         }`}
                                 >
-                                    {installedIds.includes(selectedPlugin.id) ? 'Installed' : installingId === selectedPlugin.id ? 'Installing...' : `Install Plugin`}
+                                    {installingId === selectedPlugin.id ? 'Processing...' : installedIds.includes(selectedPlugin.id) ? 'Uninstall Plugin' : 'Install Plugin'}
                                 </button>
                             </div>
                         </motion.div>
@@ -635,15 +644,15 @@ function PluginCard({ name, author, description, icon, price, isInstalled, isIns
             <div className="pt-5 mt-auto border-t border-white/[0.04]">
                 <button
                     onClick={(e) => onInstall(e)}
-                    disabled={isInstalled || isInstalling}
+                    disabled={isInstalling}
                     className={`w-full py-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 border ${isInstalled
-                        ? 'bg-emerald-500/5 border-emerald-500/20 text-emerald-500 cursor-default shadow-[inset_0_0_10px_rgba(16,185,129,0.05)]'
+                        ? 'bg-rose-500/5 border-rose-500/20 text-rose-500 hover:bg-rose-500/10'
                         : isInstalling
                             ? 'bg-transparent border-emerald-500/30 text-emerald-400 cursor-wait animate-pulse'
                             : 'bg-transparent border-white/10 text-neutral-400 hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-400 hover:shadow-[0_0_15px_rgba(16,185,129,0.15)]'
                         }`}
                 >
-                    {isInstalled ? 'Installed' : isInstalling ? 'Installing...' : `Install`}
+                    {isInstalling ? 'Processing...' : isInstalled ? 'Uninstall' : 'Install'}
                 </button>
             </div>
         </div>
