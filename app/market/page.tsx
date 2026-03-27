@@ -187,12 +187,35 @@ function MarketContent() {
             .then(res => res.json())
             .then(data => {
                 if (Array.isArray(data)) {
-                    // Update mock data with real download URLs
-                    const merged = ALL_PLUGINS.map(mock => {
-                        const real = data.find(r => r.id === mock.id);
-                        return real ? { ...mock, ...real } : mock;
-                    });
-                    setPlugins(merged);
+                    // Icon mapping for dynamic rendering
+                    const icons: Record<string, React.ReactNode> = {
+                        Sparkles: <Sparkles className="w-5 h-5 text-emerald-400" />,
+                        Code2: <Code2 className="w-5 h-5 text-blue-400" />,
+                        Cloud: <Cloud className="w-5 h-5 text-purple-400" />,
+                        Terminal: <Terminal className="w-5 h-5 text-orange-400" />,
+                        Layout: <Layout className="w-5 h-5 text-pink-400" />,
+                        Eye: <Eye className="w-5 h-5 text-cyan-400" />,
+                        Cpu: <Cpu className="w-5 h-5 text-yellow-500" />,
+                        Settings: <Settings className="w-5 h-5 text-neutral-400" />
+                    };
+
+                    // Map real data from GitHub
+                    const dynamicPlugins = data.map((p: any) => ({
+                        id: p.id,
+                        name: p.name,
+                        author: p.author || "Community",
+                        category: p.category || "Utilities",
+                        price: p.price || "FREE",
+                        rating: p.rating || 5.0,
+                        downloads: p.downloads || "New",
+                        description: p.description,
+                        icon: p.icon_name && icons[p.icon_name] ? icons[p.icon_name] : icons.Sparkles,
+                        featured: p.featured || false,
+                        accent: "emerald",
+                        download_url: p.download_url
+                    }));
+                    
+                    setPlugins(dynamicPlugins);
                 }
             })
             .catch(err => console.error("Market: Failed to fetch registry", err));
