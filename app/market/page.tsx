@@ -182,8 +182,8 @@ function MarketContent() {
     const [selectedPlugin, setSelectedPlugin] = useState<MarketPlugin | null>(null);
 
     useEffect(() => {
-        // 1. Fetch real registry if available
-        fetch("/plugins.json")
+        // Fetch registry from the dedicated plugin repository
+        fetch("https://raw.githubusercontent.com/bbqqvv/VNNotes-Plugins/refs/heads/main/plugins.json")
             .then(res => res.json())
             .then(data => {
                 if (Array.isArray(data)) {
