@@ -201,7 +201,7 @@ function MarketContent() {
                     };
 
                     // Map real data from GitHub
-                    const dynamicPlugins = data.map((p: any) => ({
+                    const dynamicPlugins = data.map((p: { id: string, name: string, author?: string, category?: string, price?: string, rating?: number, downloads?: string, description: string, icon_name?: string, featured?: boolean, download_url?: string }) => ({
                         id: p.id,
                         name: p.name,
                         author: p.author || "Community",
@@ -570,52 +570,7 @@ function MarketContent() {
     );
 }
 
-function FeaturedCard({ name, description, icon, price, category }: Partial<MarketPlugin>) {
-    return (
-        <motion.div
-            whileHover={{ y: -2 }}
-            className="group relative p-8 rounded-2xl border border-white/[0.08] bg-[#0A0A0A] hover:bg-[#111111] hover:border-white/[0.15] transition-all duration-300 h-full flex flex-col overflow-hidden"
-        >
-            <div className="relative z-10 flex flex-col h-full">
-                <div className="flex justify-between items-start mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:scale-105 transition-transform duration-500">
-                        {icon}
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
-                        Editor&apos;s Pick
-                    </span>
-                </div>
 
-                <div className="flex-grow">
-                    <h3 className="text-xl font-semibold mb-2 text-white flex items-center gap-2">
-                        {name}
-                    </h3>
-                    <p className="text-neutral-400 text-sm leading-relaxed mb-6">
-                        {description}
-                    </p>
-
-                    <div className="flex items-center gap-3 mb-8">
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 border border-white/10 px-2 py-1 rounded-md">
-                            {category}
-                        </span>
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-500 border border-emerald-500/20 px-2 py-1 rounded-md bg-emerald-500/5">
-                            Verified
-                        </span>
-                    </div>
-                </div>
-
-                <div className="flex items-center gap-3 mt-auto border-t border-white/[0.04] pt-5">
-                    <button className="flex-grow py-2.5 rounded-lg bg-transparent border border-white/10 text-neutral-300 font-bold text-xs hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-400 hover:shadow-[0_0_15px_rgba(16,185,129,0.15)] transition-all">
-                        Get It Now — {price}
-                    </button>
-                    <button className="p-2.5 rounded-lg bg-transparent border border-white/10 hover:bg-white/10 transition-colors text-neutral-400 hover:text-white">
-                        <Bookmark className="w-4 h-4" />
-                    </button>
-                </div>
-            </div>
-        </motion.div>
-    );
-}
 
 function PluginCard({ name, author, description, icon, price, isInstalled, isInstalling, onInstall, onClick }: PluginCardProps) {
     return (
