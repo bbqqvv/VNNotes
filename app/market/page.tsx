@@ -214,9 +214,8 @@ function MarketContent() {
                         accent: "emerald",
                         download_url: p.download_url
                     }));
-                    // Combine real plugins with mock UI plugins for presentation
-                    const missingMocks = ALL_PLUGINS.filter(mock => !dynamicPlugins.find((d: any) => d.id === mock.id));
-                    setPlugins([...dynamicPlugins, ...missingMocks]);
+                    // strictly map real data from GitHub repo (no mock injection)
+                    setPlugins(dynamicPlugins);
                 }
             })
             .catch(err => console.error("Market: Failed to fetch registry", err));
@@ -255,17 +254,19 @@ function MarketContent() {
             setInstallingId(id);
             window.vnnotes_market.install_plugin(id, url);
         } else {
-            // Web browser fallback: Download the file manually if url exists
-            setInstallingId(id);
-            setTimeout(() => {
-                setInstallingId(null);
-                setInstalledIds(prev => [...prev, id]);
-                if (url) {
-                    window.open(url, "_blank");
-                } else {
-                    alert("This mock UI plugin is unavailable.");
-                }
-            }, 1000);
+            // Web browser fallback: Deep Link to VNNotes Desktop
+            if (url) {
+                setInstallingId(id);
+                const deepLink = `vnnotes://install-plugin?id=${encodeURIComponent(id)}&url=${encodeURIComponent(url)}`;
+                window.location.href = deepLink;
+                
+                // Allow time for OS prompt before resetting visual state
+                setTimeout(() => {
+                    setInstallingId(null);
+                }, 2500);
+            } else {
+                alert("This mock UI plugin is unavailable.");
+            }
         }
     };
 
@@ -590,11 +591,11 @@ function FeaturedCard({ name, description, icon, price, category }: Partial<Mark
                     </div>
                 </div>
 
-                <div className="flex items-center gap-3 mt-auto">
-                    <button className="flex-grow py-2.5 rounded-lg bg-white text-black font-bold text-xs hover:bg-emerald-400 transition-colors">
+                <div className="flex items-center gap-3 mt-auto border-t border-white/[0.04] pt-5">
+                    <button className="flex-grow py-2.5 rounded-lg bg-transparent border border-white/10 text-neutral-300 font-bold text-xs hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-400 hover:shadow-[0_0_15px_rgba(16,185,129,0.15)] transition-all">
                         Get It Now — {price}
                     </button>
-                    <button className="p-2.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-neutral-400 hover:text-white">
+                    <button className="p-2.5 rounded-lg bg-transparent border border-white/10 hover:bg-white/10 transition-colors text-neutral-400 hover:text-white">
                         <Bookmark className="w-4 h-4" />
                     </button>
                 </div>
@@ -631,15 +632,15 @@ function PluginCard({ name, author, description, icon, price, isInstalled, isIns
                 <p className="text-xs text-neutral-400 leading-relaxed line-clamp-2">{description}</p>
             </div>
 
-            <div className="pt-5 mt-auto">
+            <div className="pt-5 mt-auto border-t border-white/[0.04]">
                 <button
                     onClick={(e) => onInstall(e)}
                     disabled={isInstalled || isInstalling}
-                    className={`w-full py-2 rounded-lg text-xs font-semibold transition-colors flex items-center justify-center gap-2 ${isInstalled
-                        ? 'bg-white/5 text-neutral-500 cursor-default'
+                    className={`w-full py-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 border ${isInstalled
+                        ? 'bg-emerald-500/5 border-emerald-500/20 text-emerald-500 cursor-default shadow-[inset_0_0_10px_rgba(16,185,129,0.05)]'
                         : isInstalling
-                            ? 'bg-emerald-500/10 text-emerald-400 cursor-wait animate-pulse'
-                            : 'bg-white text-black hover:bg-emerald-400'
+                            ? 'bg-transparent border-emerald-500/30 text-emerald-400 cursor-wait animate-pulse'
+                            : 'bg-transparent border-white/10 text-neutral-400 hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-400 hover:shadow-[0_0_15px_rgba(16,185,129,0.15)]'
                         }`}
                 >
                     {isInstalled ? 'Installed' : isInstalling ? 'Installing...' : `Install`}
