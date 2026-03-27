@@ -28,6 +28,7 @@ interface MarketPlugin {
 interface VnNotesMarket {
     get_installed_plugins: (callback: (list: string) => void) => void;
     install_plugin: (id: string, url: string) => void;
+    uninstall_plugin: (id: string) => void;
     installation_status: {
         connect: (callback: (id: string, success: boolean, msg: string) => void) => void;
     };
