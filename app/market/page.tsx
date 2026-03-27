@@ -214,8 +214,9 @@ function MarketContent() {
                         accent: "emerald",
                         download_url: p.download_url
                     }));
-                    
-                    setPlugins(dynamicPlugins);
+                    // Combine real plugins with mock UI plugins for presentation
+                    const missingMocks = ALL_PLUGINS.filter(mock => !dynamicPlugins.find((d: any) => d.id === mock.id));
+                    setPlugins([...dynamicPlugins, ...missingMocks]);
                 }
             })
             .catch(err => console.error("Market: Failed to fetch registry", err));
