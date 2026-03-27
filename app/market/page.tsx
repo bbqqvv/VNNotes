@@ -221,31 +221,34 @@ function MarketContent() {
             .catch(err => console.error("Market: Failed to fetch registry", err));
 
         // 2. Setup Bridge
+        let attempts = 0;
         const initBridge = () => {
             if (typeof window !== "undefined" && window.qt && window.QWebChannel) {
                 new window.QWebChannel(window.qt.webChannelTransport, (channel) => {
                     const bridge = channel.objects.vnnotes_market;
-                    window.vnnotes_market = bridge;
+                    if (bridge) {
+                        window.vnnotes_market = bridge;
 
-                    // Get initial installed list
-                    bridge.get_installed_plugins((list: string) => {
-                        try {
-                            setInstalledIds(JSON.parse(list));
-                        } catch(e) { console.error(e) }
-                    });
+                        // Get initial installed list
+                        bridge.get_installed_plugins((list: string) => {
+                            try {
+                                setInstalledIds(JSON.parse(list));
+                            } catch(e) { console.error(e) }
+                        });
 
-                    // Listen for status updates
-                    bridge.installation_status.connect((id: string, success: boolean, msg: string) => {
-                        setInstallingId(null);
-                        if (success) {
-                            setInstalledIds(prev => [...new Set([...prev, id])]);
-                        } else if (msg === "Uninstalled") {
-                            setInstalledIds(prev => prev.filter(i => i !== id));
-                        }
-                    });
+                        // Listen for status updates
+                        bridge.installation_status.connect((id: string, success: boolean, msg: string) => {
+                            setInstallingId(null);
+                            if (success) {
+                                setInstalledIds(prev => [...new Set([...prev, id])]);
+                            } else if (msg === "Uninstalled") {
+                                setInstalledIds(prev => prev.filter(i => i !== id));
+                            }
+                        });
+                    }
                 });
-            } else if (typeof window !== "undefined" && window.qt) {
-                // Wait for QWebChannel to be injected
+            } else if (typeof window !== "undefined" && attempts < 50) {
+                attempts++;
                 setTimeout(initBridge, 100);
             }
         };
